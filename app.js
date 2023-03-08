@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Randomly select block
     let random = Math.floor(Math.random()*theBlocks.length)
-    let current = theBlocks[random][0]
+    let current = theBlocks[random][currentRotation]
 
     //Draw the block
     function draw() {
@@ -58,5 +58,42 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    //Undraw the block
+    function undraw() {
+        current.forEach(index => {
+            squares[currentPosition + index].classList.remove('block')
+        })
+    }
 
+    //Block move down in interval
+    timerId = setInterval(moveDown, 1000)
+
+    //Move down function
+    function moveDown() {
+        undraw()
+        currentPosition += width
+        draw()
+        freeze()
+    }
+
+    //Block freeze in class 'taken' div
+    function freeze() {
+        if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+            current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+            //Start new block
+            random = Math.floor(Math.random()*theBlocks.length)
+            current = theBlocks[random][currentRotation]
+            currentPosition = 4
+            draw() 
+        }
+    }
+    //Move to the left, unless it is at the edge
+    function moveLeft() {
+        undraw()
+        const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
+
+        if(!isAtLeftEdge) currentPosition -=1
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken')))
+    }
 })

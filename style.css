@@ -8,22 +8,28 @@ body
 }
 .grid
 {
+    border-top: 4px solid black;
     width: 400px;
     height: 800px;
-    background-color: darkcyan;
+    background-color: grey;
+    padding: 2px;
+    gap: 1px;
     display: flex;
     flex-wrap: wrap;
 }
 .grid div
 {
-    width: 38px;
-    height: 38px;
-    border: 1px solid grey;
+    width: 39px;
+    height: 39px;
+    background-color: black;
     border-radius: 4px;
     overflow: hidden;
 }
 .block 
 {
-    background-color: red;
-    border: 1px solid black !important;
+    background-color: red !important;
+}
+.stop
+{
+   background-color: transparent !important;
 }
