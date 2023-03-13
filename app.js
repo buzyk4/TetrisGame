@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('.grid')
     let squares = Array.from(document.querySelectorAll('.grid div'))
-    const ScoreDisplay = document.querySelector('#score')
-    const StartBtn = document.querySelector('#start-btn')
+    const scoreDisplay = document.querySelector('#score')
+    const startBtn = document.querySelector('#start-btn')
     const width = 10
+    let nextRandom = 0
+    let timerId
 
     //The Block shapes
     const lBlock = [
@@ -14,14 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
         [width,width*2,width*2+1,width*2+2]
     ]
 
-    const tBlock = [
+    const zBlock = [
         [0,width,width+1,width*2+1],
         [width+1,width+2,width*2,width*2+1],
         [0,width,width+1,width*2+1],
         [width+1,width+2,width*2,width*2+1]
     ]
 
-    const zBlock = [
+    const tBlock = [
         [1,width,width+1,width+2],
         [1,width+1,width+2,width*2+1],
         [width,width+1,width+2,width*2+1],
@@ -42,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         [width,width+1,width+2,width+3]
     ]
 
-    const theBlocks = [lBlock, zBlock, oBlock, iBlock]
+    const theBlocks = [lBlock, tBlock, zBlock, oBlock, iBlock]
 
     let currentPosition = 4
     let currentRotation = 0
@@ -105,10 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
             //Start new block
-            random = Math.floor(Math.random()*theBlocks.length)
+            random = nextRandom
+            nextRandom = Math.floor(Math.random()*theBlocks.length)
             current = theBlocks[random][currentRotation]
             currentPosition = 4
-            draw() 
+            draw()
+            displayShape() 
         }
     }
 
@@ -152,6 +156,40 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
 
-    
+    //Show up next Block in mini-grid
+    const displaySquares = document.querySelectorAll('.mini-grid div')
+    const displayWidth = 4
+    let displayIndex = 0
 
+    //the Blocks without rotations
+    const upNextBlocks = [
+        [displayWidth,displayWidth+1,displayWidth+2,displayWidth*2+2], //lBlock
+        [0,displayWidth,displayWidth+1,displayWidth*2+1], //tBlock
+        [0,displayWidth,displayWidth+1,displayWidth*2+1], //zBlock
+        [0,1,displayWidth,displayWidth+1], //oBlock
+        [1,displayWidth+1,displayWidth*2+1,displayWidth*3+1] //iBlock
+    ]
+
+    //Display a shape in the mini-grid display
+    function displayShape() {
+       displaySquares.forEach(square => {
+        square.classList.remove('block')
+       })
+       upNextBlocks[nextRandom].forEach( index => {
+        displaySquares[displayIndex + index].classList.add('block')
+       })
+    }
+
+    // Start-Stop button functionality
+    startBtn.addEventListener('click', () => {
+        if (timerId) {
+            clearInterval(timerId)
+            timerId = null
+        } else {
+            draw()
+            timerId = setInterval(moveDown, 1000)
+            nextRandom = Math.floor(Math.random()*theBlocks.length)
+            displayShape()
+        }
+    })
 })
