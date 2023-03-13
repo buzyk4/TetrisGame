@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let random = Math.floor(Math.random()*theBlocks.length)
     let current = theBlocks[random][currentRotation]
 
+    //Blocks colors
+    
+
     //Draw the block
     function draw() {
         current.forEach(index => {
@@ -67,6 +70,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Block move down in interval
     timerId = setInterval(moveDown, 1000)
+
+    //assign functions to keyCodes
+    function control(e) {
+        if(e.keyCode === 65) {
+            //move left on 'a' button
+            moveLeft()
+        } else if (e.keyCode === 87) {
+            //rotate on 'w' button
+            rotate()
+
+        } else if (e.keyCode === 68) {
+            //move right on 'd' button
+            moveRight()
+
+        } else if (e.keyCode === 83) {
+            //move down on 's' button
+            moveDown()
+        }
+
+    }
+    document.addEventListener('keyup', control)
 
     //Move down function
     function moveDown() {
@@ -87,6 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
             draw() 
         }
     }
+
     //Move to the left, unless it is at the edge
     function moveLeft() {
         undraw()
@@ -94,6 +119,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(!isAtLeftEdge) currentPosition -=1
 
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken')))
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition +=1
+        }
+
+        draw()
     }
+
+    //Move to the right, unless it is at the edge
+    function moveRight() {
+        undraw()
+        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width -1)
+
+        if(!isAtRightEdge) currentPosition +=1
+
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition -=1
+        }
+
+        draw()
+    }
+
+    //rotate the block
+    function rotate() {
+        undraw()
+        currentRotation ++
+        if(currentRotation === current.length) {
+            //if the current rotation gets to 4 make it go back to 0
+            currentRotation = 0
+        }
+        current = theBlocks[random][currentRotation]
+        draw()
+    }
+
+    
+
 })
