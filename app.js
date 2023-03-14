@@ -88,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.keyCode === 83) {
             //move down on 's' button
             moveDown()
+        } else if (e.keyCode === 32) {
+            //move max down on 'space' button
+            moveMaxDown()
         }
 
     }
@@ -97,6 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function moveDown() {
         undraw()
         currentPosition += width
+        draw()
+        freeze()
+    }
+
+    //Maximum down move
+    function moveMaxDown() {
+        undraw()
+        currentPosition += width*(currentPosition)
         draw()
         freeze()
     }
@@ -188,7 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
             timerId = null
         } else {
             draw()
-            timerId = setInterval(moveDown, 1000)
+            const interval = 1000
+            timerId = setInterval(moveDown, interval)
             nextRandom = Math.floor(Math.random()*theBlocks.length)
             displayShape()
         }
@@ -201,6 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if(row.every(index => squares[index].classList.contains('taken'))) {
                 score +=10
+                if(score%100 === 0) {
+                    interval += 200
+                }
                 scoreDisplay.innerHTML = score
                 row.forEach(index => {
                     squares[index].classList.remove('taken')
