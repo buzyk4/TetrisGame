@@ -1,12 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    document.querySelector('.grid')
+    const grid = document.querySelector('.grid')
     let squares = Array.from(document.querySelectorAll('.grid div'))
     const scoreDisplay = document.querySelector('#score')
     const startBtn = document.querySelector('#start-btn')
     const width = 10
     let nextRandom = 0
     let timerId
+    let score = 0
 
     //The Block shapes
     const lBlock = [
@@ -70,8 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    //Block move down in interval
-    timerId = setInterval(moveDown, 1000)
 
     //assign functions to keyCodes
     function control(e) {
@@ -112,7 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
             current = theBlocks[random][currentRotation]
             currentPosition = 4
             draw()
-            displayShape() 
+            displayShape()
+            addScore()
+            gameOver()
         }
     }
 
@@ -159,11 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //Show up next Block in mini-grid
     const displaySquares = document.querySelectorAll('.mini-grid div')
     const displayWidth = 4
-    let displayIndex = 0
+    let displayIndex = 5
 
     //the Blocks without rotations
     const upNextBlocks = [
-        [displayWidth,displayWidth+1,displayWidth+2,displayWidth*2+2], //lBlock
+        [1,displayWidth+1,displayWidth*2+1,2], //lBlock
         [0,displayWidth,displayWidth+1,displayWidth*2+1], //tBlock
         [0,displayWidth,displayWidth+1,displayWidth*2+1], //zBlock
         [0,1,displayWidth,displayWidth+1], //oBlock
@@ -192,4 +193,31 @@ document.addEventListener('DOMContentLoaded', () => {
             displayShape()
         }
     })
+
+    //Score
+    function addScore() {
+        for (let i = 0; i < 200; i +=width) {
+            const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
+
+            if(row.every(index => squares[index].classList.contains('taken'))) {
+                score +=10
+                scoreDisplay.innerHTML = score
+                row.forEach(index => {
+                    squares[index].classList.remove('taken')
+                    squares[index].classList.remove('block')
+                })
+                const squaresRemoved = squares.splice(i, width)
+                squares = squaresRemoved.concat(squares)
+                squares.forEach(cell => grid.appendChild(cell))
+            }
+        }
+    }
+
+    //Game over
+    function gameOver() {
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            scoreDisplay.innerHTML = "GAME OVER"
+            clearInterval(timerId)
+        }
+    }
 })
