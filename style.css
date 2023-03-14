@@ -2,15 +2,21 @@ body
 {
     display:flex;
     justify-content: center;
-    background-color:cornsilk;
+    background-color:rgb(104, 104, 104);
+    background-image: url(/images/background.webp);
+    margin: 0;
 }
 .container
 {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: center;
     gap: 20px;
     align-items: center;
+    background: rgba(255, 255, 255, 0.089);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5.4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .grid-container
 {
