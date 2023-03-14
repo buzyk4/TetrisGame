@@ -88,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.keyCode === 83) {
             //move down on 's' button
             moveDown()
-        } else if (e.keyCode === 32) {
-            //move max down on 'space' button
+        } else if (e.keyCode === 13) {
+            //move max down on 'enter' button
             moveMaxDown()
         }
 
@@ -106,16 +106,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Maximum down move
     function moveMaxDown() {
-        undraw()
-        currentPosition += width*(currentPosition)
-        draw()
+
+        while (current.some(index => squares[currentPosition + index + width].classList.contains('empty'))) {
+            undraw()
+            currentPosition += width
+            draw()
+            if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+                break
+            }
+        }
         freeze()
     }
+    
 
     //Block freeze in class 'taken' div
     function freeze() {
         if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+            current.forEach(index => squares[currentPosition + index].classList.remove('empty'))
             //Start new block
             random = nextRandom
             nextRandom = Math.floor(Math.random()*theBlocks.length)
