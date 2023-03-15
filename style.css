@@ -30,6 +30,7 @@ body
     margin-bottom: 1em;
     padding: 5px;
     font-size: large;
+    cursor: pointer;
 }
 .grid
 {
@@ -78,10 +79,30 @@ body
 }
 .block 
 {
-    background-color: red !important;
     box-shadow: whitesmoke 0px 0px 2px 1px;
+    background-color: #F44336 !important;
 }
 .stop
 {
    background-color: transparent !important;
+}
+
+.lBlock {
+    background-color: #F44336 !important; /* red */
+}
+  
+.zBlock {
+    background-color: #4CAF50 !important; /* green */
+}
+  
+.tBlock {
+    background-color: #9C27B0 !important; /* purple */
+}
+  
+.oBlock {
+    background-color: #FFEB3B !important; /* yellow */
+}
+  
+.iBlock {
+    background-color: #2196F3 !important; /* blue */
 }

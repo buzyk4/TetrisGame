@@ -53,21 +53,53 @@ document.addEventListener('DOMContentLoaded', () => {
     //Randomly select block
     let random = Math.floor(Math.random()*theBlocks.length)
     let current = theBlocks[random][currentRotation]
+    console.log(random)
 
-    //Blocks colors
-    
+    //Blocks colors   
+    color = ''
+    nextColor = ''
+
+    function witchColor () {
+        if (random === 0) {
+            color = 'lBlock'
+        }else if (random === 1) {
+            color = 'tBlock'
+        }else if (random === 2) {
+            color = 'zBlock'
+        }else if (random === 3) {
+            color = 'oBlock'
+        }else if (random === 4) {
+            color = 'iBlock'
+        }
+    }
+
+    function witchNextColor () {
+        if (nextRandom === 0) {
+            nextColor = 'lBlock'
+        }else if (nextRandom === 1) {
+            nextColor = 'tBlock'
+        }else if (nextRandom === 2) {
+            nextColor = 'zBlock'
+        }else if (nextRandom === 3) {
+            nextRColor = 'oBlock'
+        }else if (nextRandom === 4) {
+            nextColor = 'iBlock'
+        }
+    }
 
     //Draw the block
     function draw() {
+        witchColor()
         current.forEach(index => {
-            squares[currentPosition + index].classList.add('block')
+            squares[currentPosition + index].classList.add('block', color)
         })
     }
 
     //Undraw the block
     function undraw() {
+        
         current.forEach(index => {
-            squares[currentPosition + index].classList.remove('block')
+            squares[currentPosition + index].classList.remove('block', color)
         })
     }
 
@@ -117,18 +149,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         freeze()
     }
-    
+
 
     //Block freeze in class 'taken' div
     function freeze() {
         if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
-            current.forEach(index => squares[currentPosition + index].classList.remove('empty'))
             //Start new block
             random = nextRandom
             nextRandom = Math.floor(Math.random()*theBlocks.length)
             current = theBlocks[random][currentRotation]
             currentPosition = 4
+            console.log(random)
             draw()
             displayShape()
             addScore()
@@ -160,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
             currentPosition -=1
         }
-
         draw()
     }
 
@@ -192,11 +223,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Display a shape in the mini-grid display
     function displayShape() {
+        witchNextColor()
        displaySquares.forEach(square => {
-        square.classList.remove('block')
-       })
+        square.classList.remove('block', 'lBlock', 'zBlock', 'tBlock', 'oBlock', 'iBlock')
+        })
        upNextBlocks[nextRandom].forEach( index => {
-        displaySquares[displayIndex + index].classList.add('block')
+        displaySquares[displayIndex + index].classList.add('block', nextColor)
        })
     }
 
@@ -218,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function addScore() {
         for (let i = 0; i < 200; i +=width) {
             const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
-
+            
             if(row.every(index => squares[index].classList.contains('taken'))) {
                 score +=10
                 if(score%100 === 0) {
@@ -228,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.forEach(index => {
                     squares[index].classList.remove('taken')
                     squares[index].classList.remove('block')
+                    squares[index].classList.remove('lBlock', 'zBlock', 'tBlock', 'oBlock', 'iBlock')
                 })
                 const squaresRemoved = squares.splice(i, width)
                 squares = squaresRemoved.concat(squares)
