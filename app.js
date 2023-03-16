@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //Randomly select block
     let random = Math.floor(Math.random()*theBlocks.length)
     let current = theBlocks[random][currentRotation]
-    console.log(random)
 
     //Blocks colors   
     color = ''
@@ -233,13 +232,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Start-Stop button functionality
+    let interval = 1000
+
     startBtn.addEventListener('click', () => {
         if (timerId) {
             clearInterval(timerId)
             timerId = null
         } else {
             draw()
-            const interval = 1000
             timerId = setInterval(moveDown, interval)
             nextRandom = Math.floor(Math.random()*theBlocks.length)
             displayShape()
@@ -254,7 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if(row.every(index => squares[index].classList.contains('taken'))) {
                 score +=10
                 if(score%100 === 0) {
-                    interval += 200
+                    x = 1
+                    x += 1
+                    interval -= ((interval * x) * 0.15)
+                    console.log('INTERVAL IS:', interval)
                 }
                 scoreDisplay.innerHTML = score
                 row.forEach(index => {
@@ -277,3 +280,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 })
+
+//music
+function playMusic(videoId) {
+    var player = document.getElementById('my-iframe');
+    player.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+    document.getElementsByClassName('music').style.display = 'block';
+}
+
+function pauseMusic() {
+    var iframe = document.getElementById('my-iframe');
+    var player = new YT.Player(iframe);
+    
+    if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+      player.pauseVideo();
+    }
+}
+  
+document.getElementById("pause-btn").addEventListener("click", pauseMusic);

@@ -1,14 +1,31 @@
+html
+{
+    height: 100%;
+}
 body
 {
+    height: 100%;
     display:flex;
     justify-content: center;
     background-color:rgb(104, 104, 104);
     background-image: url(/images/background.webp);
     margin: 0;
 }
+.music
+{
+    position: absolute;
+    z-index: -100;
+    visibility: hidden;
+}
+iframe
+{
+    z-index: -100;
+}
 .container
 {
+    background-image: url(/images/background.webp);
     width: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -40,17 +57,17 @@ body
     border-bottom: 4px solid black;
     width: 400px;
     height: 800px;
-    background-color: grey;
+    background-color: rgba(20, 20, 20, 0.904);
     padding: 2px;
-    gap: 1px;
+    gap: 2px;
     display: flex;
     flex-wrap: wrap;
     overflow:hidden;
 }
 .grid div
 {
-    width: 39px;
-    height: 39px;
+    width: 38px;
+    height: 38px;
     background-color: black;
     border-radius: 2px;
     overflow: hidden;
@@ -60,16 +77,20 @@ body
     width: 160px;
     height: 200px;
     border: 4px solid black;
-    background-color: grey;
+    background-color: rgba(20, 20, 20, 0.904);
     display: flex;
     flex-wrap: wrap;
-    gap: 1px;
-    padding: 2px;
+    gap: 2px;
+    padding: 5px;
+}
+.mini-grid div
+{
+    border-radius: 2px;
 }
 .mini-grid .empty
 {
-    width: 39px;
-    width: 39px;
+    width: 38px;
+    width: 38px;
     background-color: black;
 }
 .mini-grid-container
@@ -79,7 +100,7 @@ body
 }
 .block 
 {
-    box-shadow: whitesmoke 0px 0px 2px 1px;
+    box-shadow: white 0px 0px 0px 2px;
     background-color: #F44336 !important;
 }
 .stop
