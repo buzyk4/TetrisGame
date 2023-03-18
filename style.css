@@ -43,10 +43,9 @@ iframe
 }
 #start-btn
 {
-    border-radius: 4px;
     margin-bottom: 1em;
     padding: 5px;
-    font-size: large;
+    
     cursor: pointer;
 }
 .grid
@@ -126,4 +125,22 @@ iframe
   
 .iBlock {
     background-color: #2196F3 !important; /* blue */
+}
+
+.testBtn
+{
+    padding: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid black;
+    transition: 0.1s;
+    box-shadow: 0 6px #3b3b3b;
+}
+
+.testBtn:active
+{
+    box-shadow: 0 0px #3b3b3b;
+    transform: translateY(4px); 
 }
