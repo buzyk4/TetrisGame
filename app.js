@@ -155,11 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => squares[currentPosition + index].classList.add('taken'))
             //Start new block
+
             random = nextRandom
-            nextRandom = Math.floor(Math.random()*theBlocks.length)
+            while (nextRandom === random) {
+                nextRandom = Math.floor(Math.random()*theBlocks.length);
+            }
+
             current = theBlocks[random][currentRotation]
             currentPosition = 4
-            console.log(random)
             draw()
             displayShape()
             addScore()
