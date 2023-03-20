@@ -23,6 +23,7 @@ iframe
 }
 .container
 {
+    position: relative;
     background-image: url(/images/background.webp);
     width: 100%;
     min-height: 100%;
@@ -145,12 +146,29 @@ iframe
     transform: translateY(4px); 
 }
 
+.instructions-container
+{
+    position: absolute;
+
+    left: 4em;
+}
 #keyboard-list
 {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 2em;
+}
+#keyboard-list > li
+{
+    display: flex;
+    align-items: center;
+    gap: 1em
+}
+#keyboard-list > li > span
+{
+    font-weight: 600;
+    font-size: 2em;
 }
 .keyboard
 {
@@ -169,7 +187,8 @@ iframe
     border: 4px solid #857e71;
     border-radius: 8px;
 }
-.keyboard::before {
+.keyboard::before
+{
     content: "";
     position: absolute;
 
@@ -180,7 +199,8 @@ iframe
     border: 4px solid #d9ccbc;
     border-radius: 8px;
   }
-.key{
+.key
+{
     position: relative;
   
     display: flex;
@@ -190,6 +210,7 @@ iframe
     z-index: 50;
     width: 1.5em;
     height: 1.5em;
+    cursor: default;
   
     font-size: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
@@ -200,11 +221,13 @@ iframe
     border-radius: 6px;
     box-shadow: 0 -10rem 10rem 3rem #f6e5d6,inset 0rem -0.8rem 2rem #baaf9e;
 }
-.angle-shadow {
+.angle-shadow
+{
   position: absolute;
 }
 
-.angle-shadow.top-section {
+.angle-shadow.top-section
+{
   top: 2.2em;
 
   width: 4em;
@@ -214,7 +237,8 @@ iframe
   box-shadow: 0 0 4px #f6e5d6;
 }
 
-.angle-shadow.bottom-section {
+.angle-shadow.bottom-section
+{
   bottom: 2em;
   width: 3em;
 
@@ -223,25 +247,29 @@ iframe
   border-left: 4px solid transparent;
 }
 
-.angle-shadow.left-top {
+.angle-shadow.left-top
+{
   left: 0.5rem;
 
   transform: rotate(36deg);
 }
 
-.angle-shadow.right-top {
+.angle-shadow.right-top
+{
   right: 0.5rem;
 
   transform: rotate(-36deg);
 }
 
-.angle-shadow.left-bottom {
+.angle-shadow.left-bottom
+{
   left: 12px;
 
   transform: rotate(130deg);
 }
 
-.angle-shadow.right-bottom {
+.angle-shadow.right-bottom
+{
   right: 12px;
 
   transform: rotate(-130deg);
