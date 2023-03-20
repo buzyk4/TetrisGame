@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (e.keyCode === 83) {
             //move down on 's' button
             moveDown()
-        } else if (e.keyCode === 13) {
+        } else if (e.keyCode === 71) {
             //move max down on 'enter' button
             moveMaxDown()
         }
