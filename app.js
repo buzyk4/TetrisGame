@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //the Blocks without rotations
     const upNextBlocks = [
         [1,displayWidth+1,displayWidth*2+1,2], //lBlock
-        [0,displayWidth,displayWidth+1,displayWidth*2+1], //tBlock
+        [1,displayWidth,displayWidth+1,displayWidth*2+1], //tBlock
         [0,displayWidth,displayWidth+1,displayWidth*2+1], //zBlock
         [0,1,displayWidth,displayWidth+1], //oBlock
         [1,displayWidth+1,displayWidth*2+1,displayWidth*3+1] //iBlock
@@ -226,11 +226,11 @@ document.addEventListener('DOMContentLoaded', () => {
     //Display a shape in the mini-grid display
     function displayShape() {
         witchNextColor()
-       displaySquares.forEach(square => {
+        displaySquares.forEach(square => {
         square.classList.remove('block', 'lBlock', 'zBlock', 'tBlock', 'oBlock', 'iBlock')
         })
-       upNextBlocks[nextRandom].forEach( index => {
-        displaySquares[displayIndex + index].classList.add('block', nextColor)
+        upNextBlocks[nextRandom].forEach( index => {
+            displaySquares[displayIndex + index].classList.add('block', nextColor)
        })
     }
 
