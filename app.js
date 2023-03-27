@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Maximum down move
     function moveMaxDown() {
 
-        while (current.some(index => squares[currentPosition + index + width].classList.contains('empty'))) {  
+        while (current.some(index => squares[currentPosition + index + width].classList.contains('empty'))) {
             undraw()
             currentPosition += width
             draw()
